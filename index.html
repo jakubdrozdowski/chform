@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz klienta - Cosmetic Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: #edf0f4;
+            color: #7a7d85;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #edf0f4;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+        }
+        
+        .form-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(254, 140, 150, 0.1);
+        }
+        
+        .logo {
+            font-size: 42px;
+            font-weight: 700;
+            margin-right: 40px;
+        }
+        
+        .cosmetic {
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #7a7d85;
+        }
+        
+        .hub {
+            font-size: 65px;
+            font-weight: 900;
+            line-height: 0.9;
+            background: linear-gradient(135deg, #ff9eb5 0%, #fe8c96 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .form-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #7a7d85;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+            padding: 30px;
+            border-radius: 20px;
+            background: #edf0f4;
+            box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #7a7d85;
+            position: relative;
+            padding-left: 12px;
+        }
+        
+        .section-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(135deg, #ff9eb5 0%, #fe8c96 100%);
+            border-radius: 2px;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+        
+        .col {
+            flex: 1;
+            padding: 0 15px;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #9e9e9e;
+        }
+        
+        .required:after, .required-marker {
+            content: ' *';
+            color: #fe8c96;
+        }
+        
+        input[type="text"], 
+        input[type="email"], 
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 14px;
+            color: #7a7d85;
+            background: #edf0f4;
+            box-shadow: inset 5px 5px 10px #d1d9e6, 
+                        inset -5px -5px 10px #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus, 
+        input[type="email"]:focus, 
+        input[type="tel"]:focus,
+        textarea:focus {
+            outline: none;
+            box-shadow: inset 3px 3px 6px #d1d9e6, 
+                        inset -3px -3px 6px #ffffff;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+            flex-direction: column;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+        
+        /* Neumorphic checkbox */
+        .checkbox-option input[type="checkbox"] {
+            /* Hide default */
+            appearance: none;
+            -webkit-appearance: none;
+            height: 22px;
+            width: 22px;
+            background: #edf0f4;
+            border-radius: 6px;
+            box-shadow: 3px 3px 6px #d1d9e6, -3px -3px 6px #ffffff;
+            cursor: pointer;
+            margin-right: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-option input[type="checkbox"]:checked {
+            background: linear-gradient(135deg, #ff9eb5 0%, #fe8c96 100%);
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .checkbox-option input[type="checkbox"]:checked:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        /* Specific style for RODO checkbox to ensure it's square */
+        .gdpr-consent .checkbox-option input[type="checkbox"] {
+            height: 22px;
+            width: 22px;
+            min-width: 22px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+        
+        .brand-section {
+            background: #edf0f4;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+            border-left: none;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-section:hover {
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+        }
+        
+        .brand-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #7a7d85;
+        }
+        
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .brand-info {
+            flex: 1;
+        }
+        
+        .brand-logo {
+            width: 120px;
+            height: 120px;
+            margin-left: 20px;
+            flex-shrink: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 5px 5px 10px #d1d9e6, -5px -5px 10px #ffffff;
+        }
+        
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 15px;
+        }
+        
+        .copy-button {
+            background: #edf0f4;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #7a7d85;
+            font-weight: 500;
+            box-shadow: 5px 5px 10px #d1d9e6, -5px -5px 10px #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-button:hover {
+            box-shadow: 6px 6px 12px #d1d9e6, -6px -6px 12px #ffffff;
+        }
+        
+        .copy-button:active {
+            box-shadow: inset 3px 3px 6px #d1d9e6, inset -3px -3px 6px #ffffff;
+        }
+        
+        /* Switch styling */
+        .switch-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .slider-text {
+            display: flex;
+            font-size: 14px;
+            font-weight: 500;
+            color: #9e9e9e;
+        }
+        
+        .slider-text .no {
+            margin-right: 15px;
+        }
+        
+        .slider-text .yes {
+            margin-left: 15px;
+            color: #fe8c96;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            margin: 0 5px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #edf0f4;
+            box-shadow: inset 3px 3px 6px #d1d9e6, inset -3px -3px 6px #ffffff;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(135deg, #ff9eb5 0%, #fe8c96 100%);
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+        
+        /* Range slider */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            padding: 10px 0;
+        }
+        
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #edf0f4;
+            box-shadow: inset 3px 3px 6px #d1d9e6, inset -3px -3px 6px #ffffff;
+            outline: none;
+        }
+        
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9eb5 0%, #fe8c96 100%);
+            cursor: pointer;
+            border: 4px solid white;
+            box-shadow: 3px 3px 6px #d1d9e6;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .range-slider::-moz-range-thumb {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9eb5 0%, #fe8c96 100%);
+            cursor: pointer;
+            border: 4px solid white;
+            box-shadow: 3px 3px 6px #d1d9e6;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #9e9e9e;
+        }
+        
+        .additional-notes {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+            border-radius: 15px;
+            background: #edf0f4;
+            box-shadow: inset 5px 5px 10px #d1d9e6, inset -5px -5px 10px #ffffff;
+            border: none;
+            padding: 15px;
+            font-size: 14px;
+            color: #7a7d85;
+        }
+        
+        .gdpr-consent {
+            margin-top: 30px;
+            padding: 25px;
+            background: #edf0f4;
+            border-radius: 20px;
+            font-size: 13px;
+            box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+            color: #9e9e9e;
+        }
+        
+        /* Fix for the RODO checkbox text alignment */
+        .gdpr-consent .checkbox-option {
+            align-items: flex-start;
+        }
+        
+        .gdpr-consent .checkbox-option span {
+            padding-top: 2px;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #ff9eb5 0%, #fe8c96 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 10px #d1d9e6, -5px -5px 10px #ffffff;
+            margin-top: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .submit-button:hover {
+            box-shadow: 7px 7px 14px #d1d9e6, -7px -7px 14px #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        .submit-button:active {
+            box-shadow: inset 3px 3px 6px rgba(0,0,0,0.1);
+            transform: translateY(0);
+        }
+        
+        .brand-options {
+            display: none;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        /* Style dla checkboxa "Jeszcze nie mam firmy" */
+        .no-company-container {
+            margin-bottom: 30px;
+            background: #edf0f4;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        .no-company-container:hover {
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+        }
+        
+        .no-company-option {
+            font-size: 16px;
+            font-weight: 500;
+            color: #7a7d85;
+        }
+        
+        /* Styl dla wyłączonych sekcji */
+        .section.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        .section.disabled input,
+        .section.disabled textarea {
+            cursor: not-allowed;
+        }
+        
+        /* Styl dla aktywnych pól w wyłączonej sekcji */
+        .form-group.active-field {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .form-group.active-field input {
+            background-color: #edf0f4;
+            cursor: text;
+        }
+        
+        /* Styl dla pojedynczych wyłączonych pól */
+        .form-group.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        .form-group.disabled input {
+            cursor: not-allowed;
+        }
+        
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .form-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .col {
+                flex: 100%;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .copy-button {
+                margin-top: 10px;
+            }
+            
+            .brand-header {
+                flex-direction: column;
+            }
+            
+            .brand-logo {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+            
+            .section, .brand-section, .gdpr-consent, .no-company-container {
+                padding: 20px 15px;
+            }
+        }
+        
+        /* Style dla przełącznika języka */
+        .language-switch {
+            display: inline-flex;
+            background: #edf0f4;
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: 3px 3px 6px #d1d9e6, -3px -3px 6px #ffffff;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 15px;
+            margin: 0 2px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #7a7d85;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn.active {
+            background: linear-gradient(135deg, #ff9eb5 0%, #fe8c96 100%);
+            color: white;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .lang-btn:hover:not(.active) {
+            background: rgba(254, 140, 150, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div style="text-align: right; margin-bottom: 20px;">
+            <div class="language-switch">
+                <button id="pl-lang" class="lang-btn active" onclick="switchLanguage('pl')">PL</button>
+                <button id="en-lang" class="lang-btn" onclick="switchLanguage('en')">EN</button>
+                <button id="ua-lang" class="lang-btn" onclick="switchLanguage('ua')">UA</button>
+            </div>
+        </div>
+        
+        <div class="form-header">
+            <div class="logo">
+                <div class="cosmetic">COSMETIC</div>
+                <div class="hub">hub</div>
+            </div>
+            <h1 class="form-title" data-translate="formTitle">Formularz klienta</h1>
+        </div>
+        
+        <div style="margin-bottom: 25px; font-size: 14px; text-align: right; color: #7a7d85; font-weight: 500;">
+            <span style="color: #fe8c96; font-weight: 700;">*</span> - <span data-translate="requiredFields">pola obowiązkowe</span>
+        </div>
+        
+        <form id="clientForm" method="post" onsubmit="return false;">
+            
+            <!-- Checkbox dla osób bez firmy -->
+            <div class="no-company-container">
+                <label class="checkbox-option no-company-option">
+                    <input type="checkbox" id="noCompanyCheckbox" name="Jeszcze nie mam firmy" value="Tak"> 
+                    <span data-translate="noCompanyYet">Jeszcze nie mam firmy</span>
+                </label>
+            </div>
+            
+            <!-- Dane firmy do faktury -->
+            <div class="section" id="companyDataSection">
+                <h2 class="section-title" data-translate="companyDataTitle">Dane firmy do faktury</h2>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group" id="companyNameGroup">
+                            <label for="companyName" class="required" data-translate="companyName">Nazwa</label>
+                            <input type="text" id="companyName" name="Nazwa firmy" class="company-field required-field" required>
+                        </div>
+                        <div class="form-group" id="companyAddressGroup">
+                            <label for="companyAddress" class="required" data-translate="companyAddress">Adres</label>
+                            <input type="text" id="companyAddress" name="Adres firmy" class="company-field required-field" required>
+                        </div>
+                        <div class="form-group" id="companyNIPGroup">
+                            <label for="companyNIP" class="required" data-translate="companyNIP">NIP</label>
+                            <input type="text" id="companyNIP" name="NIP" pattern="[0-9]{10}" title="NIP powinien zawierać 10 cyfr" class="company-field required-field" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group" id="companyEmailGroup">
+                            <label for="companyEmail" class="required" data-translate="companyEmail">Adres e-mail</label>
+                            <input type="email" id="companyEmail" name="Email firmowy" class="company-field required-field" required>
+                        </div>
+                        <div class="form-group" id="companyPhoneGroup">
+                            <label for="companyPhone" class="required" data-translate="companyPhone">Numer kontaktowy</label>
+                            <input type="tel" id="companyPhone" name="Telefon firmowy" pattern="[0-9\s\+\-]{9,15}" title="Proszę podać poprawny numer telefonu" class="company-field required-field" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dane do dostawy -->
+            <div class="section" id="deliveryDataSection">
+                <h2 class="section-title" data-translate="deliveryDataTitle">Dane do dostawy</h2>
+                <button type="button" class="copy-button" id="copyButton" data-translate="copyButton">Kopiuj z danych do faktury</button>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="deliveryName" data-translate="deliveryName">Nazwa</label>
+                            <input type="text" id="deliveryName" name="Nazwa dostawy" class="company-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryAddress" data-translate="deliveryAddress">Adres</label>
+                            <input type="text" id="deliveryAddress" name="Adres dostawy" class="company-field">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="deliveryEmail" data-translate="deliveryEmail">Adres e-mail</label>
+                            <input type="email" id="deliveryEmail" name="Email do dostawy" class="company-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryPhone" data-translate="deliveryPhone">Numer kontaktowy</label>
+                            <input type="tel" id="deliveryPhone" name="Telefon do dostawy" pattern="[0-9\s\+\-]{9,15}" title="Proszę podać poprawny numer telefonu" class="company-field">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Informacje o firmie -->
+            <div class="section" id="companyInfoSection">
+                <h2 class="section-title" data-translate="companyInfoTitle">Informacje o firmie</h2>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="foundingYear" data-translate="foundingYear">Rok założenia</label>
+                            <input type="text" id="foundingYear" name="Rok zalozenia" pattern="[0-9]{4}" title="Proszę podać rok w formacie RRRR" class="company-field">
+                        </div>
+                        <div class="form-group">
+                            <label data-translate="businessTypeTitle">Rodzaj działalności</label> <span class="required-marker">*</span>
+                            <div class="checkbox-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="Rodzaj dzialalnosci" value="hurtownia" class="required-checkbox company-field" data-group="business-type"> <span data-translate="businessTypeWarehouse">hurtownia</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="Rodzaj dzialalnosci" value="sklep stacjonarny/online" class="required-checkbox company-field" data-group="business-type"> <span data-translate="businessTypeStore">sklep stacjonarny/online</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="Rodzaj dzialalnosci" value="salon kosmetyczny" class="required-checkbox company-field" data-group="business-type"> <span data-translate="businessTypeSalon">salon kosmetyczny</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label data-translate="salesChannelTitle">Kanał sprzedaży</label> <span class="required-marker">*</span>
+                            <div class="checkbox-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="Kanal sprzedazy" value="stacjonarnie" class="required-checkbox company-field" data-group="sales-channel"> <span data-translate="salesChannelPhysical">stacjonarnie</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="Kanal sprzedazy" value="online" class="required-checkbox company-field" data-group="sales-channel"> <span data-translate="salesChannelOnline">online</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="website" data-translate="website">Strona www</label>
+                            <input type="text" id="website" name="Strona www" placeholder="sklep.pl" pattern=".*\..*" title="Wprowadź poprawny adres strony zawierający kropkę" class="company-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="instagram" data-translate="instagram">Profil Instagram</label>
+                            <input type="text" id="instagram" name="Instagram" placeholder="@nazwa_profilu" data-translate="profilePlaceholder" class="company-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="facebook" data-translate="facebook">Profil Facebook</label>
+                            <input type="text" id="facebook" name="Facebook" placeholder="@nazwa_profilu" data-translate="profilePlaceholder" class="company-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="currentBrands" data-translate="currentBrands">Obecne marki w sprzedaży</label>
+                            <input type="text" id="currentBrands" name="Obecne marki" class="company-field">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NAILSOFTHEDAY -->
+            <div class="brand-section">
+                <div class="brand-header">
+                    <div class="brand-info">
+                        <h3 class="brand-title">NAILSOFTHEDAY</h3>
+                        <div class="form-group">
+                            <label data-translate="interested">Jestem zainteresowany/a zakupem</label>
+                            <div class="switch-container">
+                                <div class="slider-text">
+                                    <span class="no" data-translate="no">NIE</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" class="brand-toggle" data-brand="notd">
+                                    <span class="slider"></span>
+                                </label>
+                                <div class="slider-text">
+                                    <span class="yes" data-translate="yes">TAK</span>
+                                </div>
+                            </div>
+                            <input type="hidden" name="NAILSOFTHEDAY - zainteresowanie" id="notd-interest" value="NIE">
+                        </div>
+                    </div>
+                    <div class="brand-logo">
+                        <img src="https://nailsoftheday.pl/upload/da508/Projekt-bez-nazwy-1-.png" alt="Logo NAILSOFTHEDAY">
+                    </div>
+                </div>
+                <div class="brand-options" id="notd-options">
+                    <div class="form-group">
+                        <label><span data-translate="monthlyOrderValue">Miesięczna wartość zamówień</span>: <span id="notdValueDisplay">2000 PLN</span></label>
+                        <div class="slider-container">
+                            <input type="range" min="500" max="10000" value="2000" step="500" class="range-slider" id="notdValueSlider">
+                            <div class="slider-labels">
+                                <span>500 PLN</span>
+                                <span>5000 PLN</span>
+                                <span>10000 PLN</span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="NAILSOFTHEDAY - miesieczna wartosc" id="notdValueInput" value="2000 PLN">
+                    </div>
+                    <div class="form-group">
+                        <label for="commentsNOTD" data-translate="additionalComments">Dodatkowe uwagi z Państwa strony</label>
+                        <textarea id="commentsNOTD" name="NAILSOFTHEDAY - uwagi" class="additional-notes"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TOUCH -->
+            <div class="brand-section">
+                <div class="brand-header">
+                    <div class="brand-info">
+                        <h3 class="brand-title">TOUCH</h3>
+                        <div class="form-group">
+                            <label data-translate="interested">Jestem zainteresowany/a zakupem</label>
+                            <div class="switch-container">
+                                <div class="slider-text">
+                                    <span class="no" data-translate="no">NIE</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" class="brand-toggle" data-brand="touch">
+                                    <span class="slider"></span>
+                                </label>
+                                <div class="slider-text">
+                                    <span class="yes" data-translate="yes">TAK</span>
+                                </div>
+                            </div>
+                            <input type="hidden" name="TOUCH - zainteresowanie" id="touch-interest" value="NIE">
+                        </div>
+                    </div>
+                    <div class="brand-logo">
+                        <img src="https://nailsoftheday.pl/upload/da508/Projekt-bez-nazwy-2-.png" alt="Logo TOUCH">
+                    </div>
+                </div>
+                <div class="brand-options" id="touch-options">
+                    <div class="form-group">
+                        <label>Miesięczna wartość zamówień: <span id="touchValueDisplay">2000 PLN</span></label>
+                        <div class="slider-container">
+                            <input type="range" min="500" max="10000" value="2000" step="500" class="range-slider" id="touchValueSlider">
+                            <div class="slider-labels">
+                                <span>500 PLN</span>
+                                <span>5000 PLN</span>
+                                <span>10000 PLN</span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="TOUCH - miesieczna wartosc" id="touchValueInput" value="2000 PLN">
+                    </div>
+                    <div class="form-group">
+                        <label for="commentsTOUCH" data-translate="additionalComments">Dodatkowe uwagi z Państwa strony</label>
+                        <textarea id="commentsTOUCH" name="TOUCH - uwagi" class="additional-notes"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- DA'23 -->
+            <div class="brand-section">
+                <div class="brand-header">
+                    <div class="brand-info">
+                        <h3 class="brand-title">DA'23</h3>
+                        <div class="form-group">
+                            <label data-translate="interested">Jestem zainteresowany/a zakupem</label>
+                            <div class="switch-container">
+                                <div class="slider-text">
+                                    <span class="no" data-translate="no">NIE</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" class="brand-toggle" data-brand="da23">
+                                    <span class="slider"></span>
+                                </label>
+                                <div class="slider-text">
+                                    <span class="yes" data-translate="yes">TAK</span>
+                                </div>
+                            </div>
+                            <input type="hidden" name="DA23 - zainteresowanie" id="da23-interest" value="NIE">
+                        </div>
+                    </div>
+                    <div class="brand-logo">
+                        <img src="https://nailsoftheday.pl/upload/da508/2.png" alt="Logo DA'23">
+                    </div>
+                </div>
+                <div class="brand-options" id="da23-options">
+                    <div class="form-group">
+                        <label>Miesięczna wartość zamówień: <span id="da23ValueDisplay">2000 PLN</span></label>
+                        <div class="slider-container">
+                            <input type="range" min="500" max="10000" value="2000" step="500" class="range-slider" id="da23ValueSlider">
+                            <div class="slider-labels">
+                                <span>500 PLN</span>
+                                <span>5000 PLN</span>
+                                <span>10000 PLN</span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="DA23 - miesieczna wartosc" id="da23ValueInput" value="2000 PLN">
+                    </div>
+                    <div class="form-group">
+                        <label for="commentsDA23" data-translate="additionalComments">Dodatkowe uwagi z Państwa strony</label>
+                        <textarea id="commentsDA23" name="DA23 - Dodatkowe uwagi" class="additional-notes"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dodatkowe informacje -->
+            <div class="section">
+                <h2 class="section-title" data-translate="additionalInfoTitle">Dodatkowe informacje od klienta</h2>
+                <textarea id="additionalComments" name="Dodatkowe informacje" class="additional-notes" style="height: 120px;"></textarea>
+            </div>
+            
+            <!-- Zgoda RODO -->
+            <div class="gdpr-consent">
+                <label class="checkbox-option">
+                    <input type="checkbox" name="Zgoda RODO" required>
+                    <span data-translate="gdprConsent">Wyrażam zgodę na przetwarzanie moich danych osobowych zawartych w formularzu w celu nawiązania współpracy handlowej zgodnie z przepisami o ochronie danych osobowych (RODO).</span>
+                </label>
+            </div>
+            
+            <button type="submit" class="submit-button">
+                <span data-translate="submitButton">Wyślij formularz</span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Funkcja do sterowania widocznością sekcji
+        function toggleCompanySections(disabled) {
+            // Lista sekcji do wyłączenia/modyfikacji
+            const sections = ['companyDataSection', 'deliveryDataSection', 'companyInfoSection'];
+            
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (disabled) {
+                    section.classList.add('disabled');
+                } else {
+                    section.classList.remove('disabled');
+                }
+            });
+            
+            // Wyłącz lub włącz wszystkie pola w tych sekcjach
+            const companyFields = document.querySelectorAll('.company-field');
+            companyFields.forEach(field => {
+                // Specjalne traktowanie dla email i telefonu w sekcji fakturowej
+                const isEmailOrPhone = (field.id === 'companyEmail' || field.id === 'companyPhone');
+                
+                if (disabled) {
+                    // Jeśli to email lub telefon w sekcji fakturowej, nie wyłączaj ich
+                    if (isEmailOrPhone) {
+                        field.disabled = false;
+                        // Upewnij się, że są wymagane
+                        field.setAttribute('required', '');
+                        // Wizualnie odróżnij te pola
+                        field.style.backgroundColor = '#ffffff';
+                    } else {
+                        // Dla innych pól - standardowe wyłączenie
+                        field.disabled = disabled;
+                        if (field.hasAttribute('required')) {
+                            field.setAttribute('data-required', 'true');
+                            field.removeAttribute('required');
+                        }
+                    }
+                } else {
+                    // Przywracanie normalnego stanu
+                    field.disabled = false;
+                    field.style.backgroundColor = '';
+                    if (field.getAttribute('data-required') === 'true') {
+                        field.setAttribute('required', '');
+                    }
+                }
+            });
+            
+            // Specjalnie traktuj sekcję "Dane firmy do faktury" gdy checkbox jest zaznaczony
+            if (disabled) {
+                const companyDataSection = document.getElementById('companyDataSection');
+                companyDataSection.classList.remove('disabled');
+                
+                // Znajdź kontenery dla email i telefonu i wizualnie je odróżnij
+                const emailGroup = document.getElementById('companyEmailGroup');
+                const phoneGroup = document.getElementById('companyPhoneGroup');
+                
+                emailGroup.classList.add('active-field');
+                phoneGroup.classList.add('active-field');
+                
+                // Wyłącz pozostałe grupy w tej sekcji
+                const otherGroups = companyDataSection.querySelectorAll('.form-group:not(#companyEmailGroup):not(#companyPhoneGroup)');
+                otherGroups.forEach(group => {
+                    group.classList.add('disabled');
+                });
+            } else {
+                // Przywracanie normalnego stanu dla wszystkich grup
+                const allGroups = document.querySelectorAll('.form-group');
+                allGroups.forEach(group => {
+                    group.classList.remove('active-field');
+                    group.classList.remove('disabled');
+                });
+            }
+        }
+        
+        // Funkcja kopiowania danych
+        function copyCompanyData() {
+            document.getElementById('deliveryName').value = document.getElementById('companyName').value;
+            document.getElementById('deliveryAddress').value = document.getElementById('companyAddress').value;
+            document.getElementById('deliveryEmail').value = document.getElementById('companyEmail').value;
+            document.getElementById('deliveryPhone').value = document.getElementById('companyPhone').value;
+            
+            // Dodaj efekt potwierdzenia w stylu neumorficznym
+            const copyButton = document.getElementById('copyButton');
+            const originalText = copyButton.textContent;
+            
+            // Użyj tłumaczenia dla wiadomości potwierdzającej
+            const currentLang = localStorage.getItem('preferredLanguage') || 'pl';
+            copyButton.textContent = translations[currentLang]['dataCopied'] || 'Dane skopiowane ✓';
+            
+            copyButton.style.background = 'linear-gradient(135deg, #ff9eb5 0%, #fe8c96 100%)';
+            copyButton.style.color = 'white';
+            
+            setTimeout(() => {
+                copyButton.textContent = originalText;
+                copyButton.style.background = '#edf0f4';
+                copyButton.style.color = '#7a7d85';
+            }, 2000);
+        }
+        
+        // Funkcja wyświetlająca/ukrywająca opcje marki
+        function toggleBrandOptions(brand, show) {
+            const options = document.getElementById(brand + '-options');
+            if (options) {
+                if (show) {
+                    options.style.display = 'block';
+                    setTimeout(() => {
+                        options.style.opacity = 1;
+                    }, 10);
+                } else {
+                    options.style.opacity = 0;
+                    setTimeout(() => {
+                        options.style.display = 'none';
+                    }, 300);
+                }
+            }
+        }
+        
+        // Obsługa suwaków
+        function setupSlider(sliderId, displayId, inputId) {
+            const slider = document.getElementById(sliderId);
+            const display = document.getElementById(displayId);
+            const input = document.getElementById(inputId);
+            
+            slider.oninput = function() {
+                const value = this.value;
+                display.textContent = value + " PLN";
+                input.value = value + " PLN";
+            }
+        }
+        
+        // Obsługa checkboxa "Jeszcze nie mam firmy"
+        function handleNoCompanyCheckbox() {
+            const noCompanyCheckbox = document.getElementById('noCompanyCheckbox');
+            
+            noCompanyCheckbox.addEventListener('change', function() {
+                toggleCompanySections(this.checked);
+            });
+        }
+        
+        // Obsługa przełączników
+        function setupToggle() {
+            const toggles = document.querySelectorAll('.brand-toggle');
+            
+            toggles.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    const brand = this.getAttribute('data-brand');
+                    const isChecked = this.checked;
+                    
+                    // Ukryj/pokaż opcje
+                    toggleBrandOptions(brand, isChecked);
+                    
+                    // Zaktualizuj ukryte pole
+                    document.getElementById(brand + '-interest').value = isChecked ? 'TAK' : 'NIE';
+                });
+            });
+        }
+        
+        // Inicjalizacja formularza
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dodaj style dla animacji wyświetlania opcji marek
+            const styleElement = document.createElement('style');
+            styleElement.textContent = `
+                .brand-options {
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                }
+            `;
+            document.head.appendChild(styleElement);
+            
+            // Ustawienia suwaków
+            setupSlider('notdValueSlider', 'notdValueDisplay', 'notdValueInput');
+            setupSlider('touchValueSlider', 'touchValueDisplay', 'touchValueInput');
+            setupSlider('da23ValueSlider', 'da23ValueDisplay', 'da23ValueInput');
+            
+            // Obsługa przycisku kopiowania
+            document.getElementById('copyButton').addEventListener('click', copyCompanyData);
+            
+            // Obsługa przełączników
+            setupToggle();
+            
+            // Obsługa checkboxa "Jeszcze nie mam firmy"
+            handleNoCompanyCheckbox();
+            
+            // Dodaj efekt hover do przycisków i sekcji
+            const sections = document.querySelectorAll('.section, .brand-section');
+            sections.forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                section.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+        
+        // Funkcja usuwająca polskie znaki
+        function replacePolishChars(text) {
+            if (!text) return text;
+            
+            // Mapa polskich znaków do ich odpowiedników bez ogonków
+            const polishChars = {
+                'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n', 
+                'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z',
+                'Ą': 'A', 'Ć': 'C', 'Ę': 'E', 'Ł': 'L', 'Ń': 'N', 
+                'Ó': 'O', 'Ś': 'S', 'Ź': 'Z', 'Ż': 'Z'
+            };
+            
+            return text.split('').map(char => polishChars[char] || char).join('');
+        }
+        
+        // Funkcja walidacji i przygotowania formularza
+        function validateAndPrepareForm(form) {
+            // Sprawdź czy zaznaczono "Jeszcze nie mam firmy"
+            const noCompanyIsChecked = document.getElementById('noCompanyCheckbox').checked;
+            
+            // Walidacja dla email i telefonu jest zawsze wymagana
+            const emailInput = document.getElementById('companyEmail');
+            if (!(/\S+@\S+\.\S+/.test(emailInput.value))) {
+                alert('Proszę podać poprawny adres email');
+                emailInput.focus();
+                return false;
+            }
+            
+            const phoneInput = document.getElementById('companyPhone');
+            if (!(/^[0-9\s\+\-]{9,15}$/.test(phoneInput.value))) {
+                alert('Proszę podać poprawny numer telefonu');
+                phoneInput.focus();
+                return false;
+            }
+            
+            // Pozostałe walidacje tylko jeśli NIE zaznaczono "Jeszcze nie mam firmy"
+            if (!noCompanyIsChecked) {
+                // Walidacja NIP
+                const nipInput = document.getElementById('companyNIP');
+                if (nipInput.value && !(/^\d{10}$/.test(nipInput.value))) {
+                    alert('NIP powinien składać się z 10 cyfr');
+                    nipInput.focus();
+                    return false;
+                }
+                
+                // Walidacja wymaganych checkboxów (przynajmniej jeden zaznaczony w grupie)
+                const requiredCheckboxGroups = ['business-type', 'sales-channel'];
+                
+                for (let groupName of requiredCheckboxGroups) {
+                    const checkboxes = document.querySelectorAll(`input[data-group="${groupName}"]`);
+                    const isAnyChecked = Array.from(checkboxes).some(cb => cb.checked);
+                    
+                    if (!isAnyChecked) {
+                        const groupLabels = {
+                            'business-type': 'Rodzaj działalności',
+                            'sales-channel': 'Kanał sprzedaży'
+                        };
+                        alert(`Proszę wybrać przynajmniej jedną opcję w polu "${groupLabels[groupName]}"`);
+                        checkboxes[0].focus();
+                        return false;
+                    }
+                }
+                
+                // Walidacja strony www
+                const websiteInput = document.getElementById('website');
+                if (websiteInput.value && !/\./.test(websiteInput.value)) {
+                    alert('Strona www powinna zawierać kropkę');
+                    websiteInput.focus();
+                    return false;
+                }
+            }
+            
+            // Walidacja zgody RODO (zawsze wymagana)
+            const rodoConsent = document.querySelector('input[name="Zgoda RODO"]');
+            if (!rodoConsent.checked) {
+                alert('Wymagana jest zgoda na przetwarzanie danych osobowych (RODO)');
+                rodoConsent.focus();
+                return false;
+            }
+            
+            // Zamiana polskich znaków na angielskie odpowiedniki we wszystkich polach formularza
+            const allInputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea, input[type="hidden"]');
+            allInputs.forEach(input => {
+                if (input.value) {
+                    input.value = replacePolishChars(input.value);
+                }
+            });
+            
+            return true; // Pozwól na wysłanie formularza
+        }
+    </script>
+    
+    <!-- Podłączenie skryptu do obsługi API backendu -->
+    <script src="js/form-submit.js"></script>
+    
+    <!-- Podłączenie skryptu do obsługi przełączania języków -->
+    <script src="js/language-switch.js"></script>
